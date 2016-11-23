@@ -1,4 +1,5 @@
 var roleHarvester = require('role.harvester')
+
 var assignSource = function (harvester, harvesters) {
   var sources = harvester.room.find(FIND_SOURCES);
   var prevS = Number.MAX_SAFE_INTEGER;

@@ -25,13 +25,13 @@ module.exports.loop = function () {
       console.log('Energy: ' + environment.getTotalEnergyLevel() + '/' + environment.getTotalEnergyCapacity());
     }
 
-    if(environment.getHarvesterCount() < 3)
+    if(environment.getHarvesterCount() < 4)
     {
-        var newName = Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE], undefined, {role: 'harvester'});
+        var newName = Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE], undefined, {role: 'harvester', state: 'collecting'});
         if(logging) console.log('Spawning new harvester: ' + newName);
     }
 
-    if(environment.getUpgraderCount() < 3)
+    if(environment.getUpgraderCount() < 4)
     {
         var newName = Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE], undefined, {role: 'upgrader'});
         if(logging) console.log('Spawning new upgrader: ' + newName);
