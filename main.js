@@ -21,14 +21,8 @@ module.exports.loop = function () {
     {
       console.log('Harvesters: ' + environment.getHarvesterCount());
       console.log('Upgraders: ' + environment.getUpgraderCount());
-
-    }
-
-
-    for(var spawn in Game.spawns)
-    {
-      console.log(Game.spawns[spawn].energy);
-      console.log(Game.spawns[spawn].name);
+      console.log('Energy: ' + environment.getTotalEnergyLevel() + '/' + environment.getTotalEnergyCapacity());
+      
     }
 
 

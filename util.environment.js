@@ -8,7 +8,17 @@ var getTotalEnergyLevel = function() {
   var energy = 0;
   for(var spawn in spawns)
   {
-    energy += spawns[spawn];
+    energy += spawns[spawn].energy;
+  }
+  return energy;
+}
+
+var getTotalEnergyCapacity = function() {
+  var spawns = Game.spawns;
+  var energy = 0;
+  for(var spawn in spawns)
+  {
+    energy += spawns[spawn].energyCapacity;
   }
   return energy;
 }
@@ -44,6 +54,8 @@ var getUpgraderCount = function() {
 
 module.exports = {
   getSpawns: getSpawns,
+  getTotalEnergyLevel: getTotalEnergyLevel,
+  getTotalEnergyCapacity: getTotalEnergyCapacity,
   getEnergySources: getEnergySources,
   getEnergySourceCount: getEnergySourceCount,
   getHarvesters: getHarvesters,
