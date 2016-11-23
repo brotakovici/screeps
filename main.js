@@ -23,11 +23,9 @@ module.exports.loop = function () {
       console.log('Harvesters: ' + environment.getHarvesterCount());
       console.log('Upgraders: ' + environment.getUpgraderCount());
       console.log('Energy: ' + environment.getTotalEnergyLevel() + '/' + environment.getTotalEnergyCapacity());
-      console.log(Game.creeps);
-
     }
 
-    if(environment.getHarvesterCount() < 1)
+    if(environment.getHarvesterCount() < 0)
     {
         var newName = Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE], undefined, {role: 'harvester'});
         console.log('Spawning new harvester: ' + newName);

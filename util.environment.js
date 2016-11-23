@@ -32,7 +32,17 @@ var getEnergySources = function() {
 }
 
 var getEnergySourceCount = function() {
-  return getEnergySources().length;
+  var creeps = Game.creeps;
+  var sourceNo;
+  for(var creep in creeps)
+  {
+    sourceNo = 0;
+    console.log(creep);
+    console.log(creeps[creep]);
+    var sources = creeps[creep].room.find(FIND_SOURCES);
+    sourceNo = sources.length
+  }
+  return sourceNo;
 }
 
 
