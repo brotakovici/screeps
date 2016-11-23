@@ -23,16 +23,16 @@ var getTotalEnergyCapacity = function() {
   return energy;
 }
 
-var getEnergyLevel = function() {
-
-}
-
 var getEnergySources = function() {
-  return Game.sources;
+  if(Game.creeps.length == 0)
+    return null;
+
+  //return Game.creeps.first().find(FIND_SOURCES);
+  return Game.creeps;
 }
 
 var getEnergySourceCount = function() {
-  return Game.sources.length;
+  return getEnergySources().length;
 }
 
 
@@ -52,6 +52,14 @@ var getUpgraderCount = function() {
   return _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader').length;
 }
 
+var getBuilders = function() {
+  return _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
+}
+
+var getBuilderCount = function() {
+  return _.filter(Game.creeps, (creep) => creep.memory.role == 'builder').length;
+}
+
 module.exports = {
   getSpawns: getSpawns,
   getTotalEnergyLevel: getTotalEnergyLevel,
@@ -61,5 +69,7 @@ module.exports = {
   getHarvesters: getHarvesters,
   getUpgraders: getUpgraders,
   getHarvesterCount: getHarvesterCount,
-  getUpgraderCount: getUpgraderCount
+  getUpgraderCount: getUpgraderCount,
+  getBuilders: getBuilders,
+  getBuilderCount: getBuilderCount
 }
