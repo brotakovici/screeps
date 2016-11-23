@@ -1,11 +1,15 @@
 var roleHarvester = {
 
     /** @param {Creep} creep **/
-    run: function(creep) {
+    run: function(creep, source) {
+
+        // Harvester is assigned a source
+        if(source != null)
+          creep.memory.sourceAssigned = source;
+
         if(creep.carry.energy < creep.carryCapacity) {
-            var sources = creep.room.find(FIND_SOURCES);
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0]);
+            if(creep.harvest(creep.memory.sourceAssigned) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(creep.memory.sourceAssigned);
             }
         }
         else {
