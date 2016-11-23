@@ -26,11 +26,6 @@ module.exports = {
       for(var creep in harvesters)
       {
         var harvester = harvesters[creep];
-        /*
-        console.log(harvester.name);
-        console.log(harvester.memory.sourceAssigned);
-        */
-
         if(!harvester.memory.assignedSource)
         {
           harvester.memory.assignedSource = assignSource(harvester, harvesters);

@@ -23,29 +23,6 @@ var getTotalEnergyCapacity = function() {
   return energy;
 }
 
-var getEnergySources = function() {
-  if(Game.creeps.length == 0)
-    return null;
-
-  //return Game.creeps.first().find(FIND_SOURCES);
-  return Game.creeps;
-}
-
-var getEnergySourceCount = function() {
-  var creeps = Game.creeps;
-  var sourceNo;
-  for(var creep in creeps)
-  {
-    sourceNo = 0;
-    console.log(creep);
-    console.log(creeps[creep]);
-    var sources = creeps[creep].room.find(FIND_SOURCES);
-    sourceNo = sources.length
-  }
-  return sourceNo;
-}
-
-
 var getHarvesters = function() {
   return _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
 }
