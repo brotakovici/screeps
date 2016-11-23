@@ -5,9 +5,9 @@ var roleHarvester = {
 
         // Harvester is assigned a source
         if(source != null)
-          creep.memory.sourceAssigned = source.id;
+          creep.memory.assignedSource = source.id;
 
-        var selectedSource = Game.getObjectById(creep.memory.sourceAssigned)
+        var selectedSource = Game.getObjectById(creep.memory.assignedSource)
         if(creep.carry.energy < creep.carryCapacity) {
             if(creep.harvest(selectedSource) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(selectedSource);

@@ -74,8 +74,6 @@ module.exports = {
   getSpawns: getSpawns,
   getTotalEnergyLevel: getTotalEnergyLevel,
   getTotalEnergyCapacity: getTotalEnergyCapacity,
-  getEnergySources: getEnergySources,
-  getEnergySourceCount: getEnergySourceCount,
   getHarvesters: getHarvesters,
   getUpgraders: getUpgraders,
   getHarvesterCount: getHarvesterCount,

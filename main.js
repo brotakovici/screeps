@@ -17,7 +17,7 @@ module.exports.loop = function () {
     // Creep generation
     // code here
 
-    var logging = true;
+    var logging = false;
     if(logging)
     {
       console.log('Harvesters: ' + environment.getHarvesterCount());
@@ -25,7 +25,7 @@ module.exports.loop = function () {
       console.log('Energy: ' + environment.getTotalEnergyLevel() + '/' + environment.getTotalEnergyCapacity());
     }
 
-    if(environment.getHarvesterCount() < 0)
+    if(environment.getHarvesterCount() < 3)
     {
         var newName = Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE], undefined, {role: 'harvester'});
         console.log('Spawning new harvester: ' + newName);
@@ -37,20 +37,22 @@ module.exports.loop = function () {
         console.log('Spawning new upgrader: ' + newName);
     }
 
-    var harvesters = environment.getHarvesters();
-    managerHarvester.run(harvesters);
+    if(environment.getHarvesterCount() > 0)
+    {
+      var harvesters = environment.getHarvesters();
+      managerHarvester.run(harvesters);
+    }
 
     // Send everyone to work
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
         if(creep.memory.role == 'harvester') {
-            sources = creep.room.find(FIND_SOURCES);
-            creep.memory.role = 'upgrader'
+            //creep.memory.role = 'upgrader'
             //roleHarvester.run(creep);
         }
 
         if(creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
+          roleUpgrader.run(creep);
         }
         /*
         if(creep.memory.role == 'builder') {
