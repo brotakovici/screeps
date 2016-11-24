@@ -15,7 +15,7 @@ module.exports = {
           upgrader.memory.assignedSource = utilManager.assignSource(upgrader, Game.creeps);
         }
 
-        roleUpgrader.run(harvester, null);
+        roleUpgrader.run(upgrader, null);
       }
     }
   }
