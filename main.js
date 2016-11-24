@@ -1,11 +1,13 @@
 var logging = true;
 
+var environment = require('util.environment');
+var utilManager = require('util.manager');
 var roleHarvester = require('role.harvester');
-var managerHarvester = require('manager.harvester')
 var roleUpgrader = require('role.upgrader');
-var environment = require('util.environment')
 var roleBuilder = require('role.builder');
-var utilManager = require('util.manager')
+var managerHarvester = require('manager.harvester');
+var managerUpgrader = require('manager.upgrader');
+var managerBuilder = require('manager.builder');
 
 module.exports.loop = function () {
 
@@ -49,18 +51,15 @@ module.exports.loop = function () {
       managerHarvester.run(harvesters);
     }
 
+    if(environment.getUpgraderCount() > 0)
+    {
+      var upgraders = environment.getUpgraders();
+      managerUpgrader.run(upgraders);
+    }
+
     // Send everyone to work
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
-
-        if(creep.memory.role == 'upgrader') {
-          if(!creep.memory.assignedSource)
-          {
-            creep.memory.assignedSource = utilManager.assignSource(creep, Game.creeps);
-          }
-
-          roleUpgrader.run(creep);
-        }
         if(creep.memory.role == 'builder') {
           if(!creep.memory.assignedSource)
           {
