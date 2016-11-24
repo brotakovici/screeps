@@ -1,8 +1,11 @@
+var logging = true;
+
 var roleHarvester = require('role.harvester');
 var managerHarvester = require('manager.harvester')
 var roleUpgrader = require('role.upgrader');
 var environment = require('util.environment')
-//var roleBuilder = require('role.builder');
+var roleBuilder = require('role.builder');
+var utilManager = require('util.manager')
 
 module.exports.loop = function () {
 
@@ -14,27 +17,30 @@ module.exports.loop = function () {
          }
     }
 
-    // Creep generation
-    // code here
-
-    var logging = true;
     if(logging)
     {
       console.log('Harvesters: ' + environment.getHarvesterCount());
       console.log('Upgraders: ' + environment.getUpgraderCount());
+      console.log('Builders: ' + environment.getBuilderCount());
       console.log('Energy: ' + environment.getTotalEnergyLevel() + '/' + environment.getTotalEnergyCapacity());
     }
 
     if(environment.getHarvesterCount() < 4)
     {
-        var newName = Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE], undefined, {role: 'harvester', state: 'collecting'});
+        var newName = Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE], undefined, {role: 'harvester', state: 'collecting', requireAssignment: true});
         if(logging) console.log('Spawning new harvester: ' + newName);
     }
 
     if(environment.getUpgraderCount() < 4)
     {
-        var newName = Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE], undefined, {role: 'upgrader'});
+        var newName = Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE], undefined, {role: 'upgrader', requireAssignment: true});
         if(logging) console.log('Spawning new upgrader: ' + newName);
+    }
+
+    if(environment.getBuilderCount() < 2)
+    {
+        var newName = Game.spawns['Spawn1'].createCreep([WORK,CARRY,MOVE], undefined, {role: 'builder', requireAssignment: true});
+        if(logging) console.log('Spawning new builder: ' + newName);
     }
 
     if(environment.getHarvesterCount() > 0)
@@ -48,12 +54,20 @@ module.exports.loop = function () {
         var creep = Game.creeps[name];
 
         if(creep.memory.role == 'upgrader') {
+          if(!creep.memory.assignedSource)
+          {
+            creep.memory.assignedSource = utilManager.assignSource(creep, Game.creeps);
+          }
+
           roleUpgrader.run(creep);
         }
-        /*
         if(creep.memory.role == 'builder') {
-            roleBuilder.run(creep);
+          if(!creep.memory.assignedSource)
+          {
+            creep.memory.assignedSource = utilManager.assignSource(creep, Game.creeps);
+          }
+          roleBuilder.run(creep);
         }
-        */
+
     }
 }

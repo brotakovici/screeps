@@ -1,22 +1,5 @@
 var roleHarvester = require('role.harvester')
-
-var assignSource = function (harvester, harvesters) {
-  var sources = harvester.room.find(FIND_SOURCES);
-  var prevS = Number.MAX_SAFE_INTEGER;
-  var sourceId;
-
-  for(var i in sources)
-  {
-    var currS = _.filter(harvesters, (creep) => creep.memory.assignedSource == sources[i].id).length;
-    if(currS <= prevS)
-    {
-      prevS = currS;
-      console.log(sources[i].id)
-      sourceId = sources[i].id;
-    }
-  }
-  return sourceId;
-}
+var utilManager = require('util.manager')
 
 module.exports = {
   run: function(harvesters) {
@@ -29,7 +12,7 @@ module.exports = {
         var harvester = harvesters[creep];
         if(!harvester.memory.assignedSource)
         {
-          harvester.memory.assignedSource = assignSource(harvester, harvesters);
+          harvester.memory.assignedSource = utilManager.assignSource(harvester, Game.creeps);
         }
 
         roleHarvester.run(harvester, null);
