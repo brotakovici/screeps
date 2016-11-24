@@ -1,31 +1,3 @@
-var getTargets = function(creep) {
-  return creep.room.find(FIND_STRUCTURES, {
-          filter: (structure) => {
-              return structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN;
-          }});
-}
-
-var connectSources = function(creep){
-  creep.say('Connecting');
-  var constructionSites = creep.room.find(FIND_CONSTRUCTION_SITES);
-  var x = creep.pos.x;
-  var y = creep.pos.y;
-  var on = _.filter(constructionSites, (site) => site.pos.x == x && site.pos.y == y);
-  if(on.length == 0)
-  {
-    creep.room.createConstructionSite(x, y, STRUCTURE_ROAD);
-  }
-  else
-  {
-    var targets = getTargets(creep);
-    if(targets.length > 0) {
-        if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(targets[0]);
-        }
-    }
-  }
-}
-
 var roleBuilder = {
 
     /** @param {Creep} creep **/
